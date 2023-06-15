@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import org.d3if0113.noted.databinding.NoteLayoutAdapterBinding
 import org.d3if0113.noted.fragments.HomeFragmentDirections
+import org.d3if0113.noted.model.Mobil
 import org.d3if0113.noted.model.Note
 import java.util.*
 
@@ -62,6 +63,23 @@ class NoteAdapter : RecyclerView.Adapter<NoteAdapter.NoteViewHolder>() {
             val direction = HomeFragmentDirections
                 .actionHomeFragmentToUpdateNoteFragment(currentNote)
             view.findNavController().navigate(direction)
+        }
+    }
+
+    class ViewHolder(
+        private val binding: ListItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(mobil: Mobil) = with(binding) {
+            namaTextView.text = mobil.namaMobil
+            latinTextView.text = mobil.informasi
+            Glide.with(imageView.context)
+                .load(MobilApi.getMobilUrl(mobil.gambar))
+                .error(R.drawable.ic_baseline_broken_image_24)
+                .into(imageView)
+
+            root.setOnClickListener {
+            }
+
         }
     }
 
